@@ -8,9 +8,11 @@ const MenuItem = ({ item }) => {
         src={image}
         alt=""
       />
-      <div className="flex">
-        <h3 className="uppercase">{name} ------</h3>
-        <p>{recipe}</p>
+      <div className="flex items-center">
+        <div>
+          <h3 className="uppercase">{name} ------</h3>
+          <p>{recipe}</p>
+        </div>
         <p className="text-yellow-500">${price}</p>
       </div>
     </div>
