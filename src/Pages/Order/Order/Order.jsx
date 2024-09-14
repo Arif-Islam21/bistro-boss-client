@@ -4,6 +4,7 @@ import Cover from "../../Home/Sheared/Cover/Cover";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import useMenu from "../../../Hooks/useMenu";
+import FoodCard from "../../../Components/SectionTitle/FoodCard/FoodCard";
 
 const Order = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -25,7 +26,13 @@ const Order = () => {
           <Tab>Desert</Tab>
           <Tab>Drinks</Tab>
         </TabList>
-        <TabPanel></TabPanel>
+        <TabPanel>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {salad.map((item) => (
+              <FoodCard key={item._id} item={item} />
+            ))}
+          </div>
+        </TabPanel>
         <TabPanel></TabPanel>
         <TabPanel></TabPanel>
         <TabPanel></TabPanel>
