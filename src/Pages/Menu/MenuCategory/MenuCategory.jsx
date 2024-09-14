@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Cover from "../../Home/Sheared/Cover/Cover";
 import MenuItem from "../../Home/Sheared/MenuItem/MenuItem";
 
@@ -10,6 +11,12 @@ const MenuCategory = ({ items, title, coverImg }) => {
           <MenuItem key={item._id} item={item} />
         ))}
       </div>
+      <Link
+        to={`/order/${title}`}
+        className="btn btn-outline border-0 border-b-4 mt-4"
+      >
+        Order Your Favourite Food
+      </Link>
     </div>
   );
 };
