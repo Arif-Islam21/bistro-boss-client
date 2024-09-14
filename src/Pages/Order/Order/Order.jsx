@@ -4,7 +4,7 @@ import Cover from "../../Home/Sheared/Cover/Cover";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import useMenu from "../../../Hooks/useMenu";
-import FoodCard from "../../../Components/SectionTitle/FoodCard/FoodCard";
+import OrderTab from "../OrderTab/OrderTab";
 
 const Order = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -14,6 +14,7 @@ const Order = () => {
   const pizza = menu.filter((item) => item.category === "pizza");
   const salad = menu.filter((item) => item.category === "salad");
   const offered = menu.filter((item) => item.category === "offered");
+  const drinks = menu.filter((item) => item.category === "drinks");
 
   return (
     <div>
@@ -27,16 +28,20 @@ const Order = () => {
           <Tab>Drinks</Tab>
         </TabList>
         <TabPanel>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {salad.map((item) => (
-              <FoodCard key={item._id} item={item} />
-            ))}
-          </div>
+          <OrderTab items={salad} />
         </TabPanel>
-        <TabPanel></TabPanel>
-        <TabPanel></TabPanel>
-        <TabPanel></TabPanel>
-        <TabPanel></TabPanel>
+        <TabPanel>
+          <OrderTab items={pizza} />
+        </TabPanel>
+        <TabPanel>
+          <OrderTab items={soup} />
+        </TabPanel>
+        <TabPanel>
+          <OrderTab items={dessert} />
+        </TabPanel>
+        <TabPanel>
+          <OrderTab items={drinks} />
+        </TabPanel>
       </Tabs>
     </div>
   );
