@@ -13,7 +13,7 @@ import "@smastrom/react-rating/style.css";
 const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    fetch("reviews.json")
+    fetch(`${import.meta.env.VITE_SERVER_URL}/reviews`)
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);
