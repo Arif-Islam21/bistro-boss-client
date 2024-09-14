@@ -3,14 +3,15 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+console.log(import.meta.env.VITE_API_KEY);
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAvCTHGdcD0NEOfqyfu11EhRGxQKwlva7I",
-  authDomain: "bistro-boss-224ea.firebaseapp.com",
-  projectId: "bistro-boss-224ea",
-  storageBucket: "bistro-boss-224ea.appspot.com",
-  messagingSenderId: "320027967769",
-  appId: "1:320027967769:web:5358cc402bd385513a8588",
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGE_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 // Initialize Firebase
