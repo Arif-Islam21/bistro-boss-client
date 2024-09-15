@@ -2,10 +2,11 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const { createUser, updateUserInfo } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -23,6 +24,7 @@ const SignUp = () => {
           .then(() => {
             console.log("user updated succesfully");
             reset();
+            navigate("/");
           })
           .catch((err) => {
             console.log(err);
