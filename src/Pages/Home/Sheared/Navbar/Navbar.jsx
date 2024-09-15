@@ -7,7 +7,7 @@ import useCart from "../../../../Hooks/useCart";
 const Navbar = () => {
   const { user, logOutUser } = useContext(AuthContext);
   const [cart] = useCart();
-  console.log(cart);
+  // console.log(cart);
   const handleLogout = () => {
     logOutUser()
       .then((result) => {
@@ -27,7 +27,7 @@ const Navbar = () => {
         <Link to={"/order/salad"}>Order Food</Link>
       </li>
       <li>
-        <Link to={"/"}>
+        <Link to={"/dashboard/cart"}>
           <button className="btn bg-slate-600 border-none">
             <FaCartShopping className="mr-2 text-white text-xl" />
             <div className="badge badge-secondary">+{cart?.length}</div>
