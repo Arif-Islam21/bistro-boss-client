@@ -2,13 +2,15 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserInfo } = useContext(AuthContext);
 
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
@@ -17,6 +19,14 @@ const SignUp = () => {
     createUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
+        updateUserInfo(data.name, data.photo)
+          .then(() => {
+            console.log("user updated succesfully");
+            reset();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -52,6 +62,19 @@ const SignUp = () => {
                   placeholder="Name"
                   name="name"
                   {...register("name")}
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Photo URL"
+                  name="photo"
+                  {...register("photo")}
                   className="input input-bordered"
                   required
                 />
