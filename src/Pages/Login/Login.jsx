@@ -11,7 +11,6 @@ import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 
 const Login = () => {
-  const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
   const { signInUser } = useContext(AuthContext);
 
@@ -54,7 +53,7 @@ const Login = () => {
 
   const handleValidateCaptcha = (e) => {
     e.preventDefault();
-    const validate_captcha_value = captchaRef.current.value;
+    const validate_captcha_value = e.target.value;
     if (validateCaptcha(validate_captcha_value)) {
       setDisabled(false);
     }
@@ -112,7 +111,6 @@ const Login = () => {
                 </label>
                 <input
                   type="text"
-                  ref={captchaRef}
                   placeholder="Type the text above"
                   name="captcha"
                   onBlur={handleValidateCaptcha}
