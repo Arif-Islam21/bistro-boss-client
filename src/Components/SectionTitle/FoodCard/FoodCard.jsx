@@ -20,7 +20,7 @@ const FoodCard = ({ item }) => {
         image,
         price,
       };
-      axiosSecure.post("/carts").then((res) => {
+      axiosSecure.post("/carts", cartItem).then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {
           Swal.fire({
