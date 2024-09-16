@@ -3,10 +3,12 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const SignUp = () => {
   const { createUser, updateUserInfo } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
@@ -19,21 +21,31 @@ const SignUp = () => {
   const onSubmit = (data) => {
     createUser(data.email, data.password)
       .then((result) => {
-        console.log(result.user);
-        updateUserInfo(data.name, data.photo)
-          .then(() => {
-            console.log("user updated succesfully");
-            reset();
-            navigate("/");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        // console.log(result.user);
+
+        // create user entry in the database
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            updateUserInfo(data.name, data.photo)
+              .then(() => {
+                console.log("user updated succesfully");
+                reset();
+                navigate("/");
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        });
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(data);
+    // console.log(data);
   };
   //   console.log(watch("name"));
 
