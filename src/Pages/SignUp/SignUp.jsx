@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const { createUser, updateUserInfo } = useContext(AuthContext);
@@ -140,6 +141,7 @@ const SignUp = () => {
                 <button className="btn btn-primary">Sign Up</button>
               </div>
             </form>
+            <SocialLogin />
             <p className="text-center mb-8 font-semibold">
               <small>
                 Already have an account? <Link to={"/signup"}>Login</Link>
