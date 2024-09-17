@@ -5,6 +5,7 @@ import {
   FaCartShopping,
   FaHouse,
   FaMobileButton,
+  FaVoicemail,
 } from "react-icons/fa6";
 import { NavLink, Outlet } from "react-router-dom";
 
@@ -54,6 +55,12 @@ const DashBoard = () => {
             <NavLink to={"/menu"}>
               <FaMobileButton />
               Menu
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/order/contact"}>
+              <FaVoicemail />
+              Contact
             </NavLink>
           </li>
         </ul>
