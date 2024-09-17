@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import Secret from "../Pages/Home/Sheared/Secret/Secret";
 import DashBoard from "../Layouts/DashBoard";
 import Cart from "../Pages/DashBoard/Cart/Cart";
+import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,12 @@ const router = createBrowserRouter([
             <Cart />
           </PrivateRoute>
         ),
+      },
+
+      // admin routes
+      {
+        path: "users",
+        element: <AllUsers />,
       },
     ],
   },
