@@ -12,6 +12,7 @@ import Cart from "../Pages/DashBoard/Cart/Cart";
 import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
 import AddItems from "../Pages/DashBoard/AddItems/AddItems";
 import PrivateAdmin from "./PrivateAdmin";
+import ManageItems from "../Pages/DashBoard/ManageItems/ManageItems";
 
 const router = createBrowserRouter([
   {
@@ -69,12 +70,20 @@ const router = createBrowserRouter([
       // admin routes
       {
         path: "addItems",
-        element: <AddItems />,
-        // element: (
-        //   <PrivateAdmin>
-        //     <AddItems />
-        //   </PrivateAdmin>
-        // ),
+        // element: <AddItems />,
+        element: (
+          <PrivateAdmin>
+            <AddItems />
+          </PrivateAdmin>
+        ),
+      },
+      {
+        path: "manageItems",
+        element: (
+          <PrivateAdmin>
+            <ManageItems />
+          </PrivateAdmin>
+        ),
       },
       {
         path: "users",
