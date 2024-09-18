@@ -69,11 +69,12 @@ const router = createBrowserRouter([
       // admin routes
       {
         path: "addItems",
-        element: (
-          <PrivateAdmin>
-            <AddItems />
-          </PrivateAdmin>
-        ),
+        element: <AddItems />,
+        // element: (
+        //   <PrivateAdmin>
+        //     <AddItems />
+        //   </PrivateAdmin>
+        // ),
       },
       {
         path: "users",
