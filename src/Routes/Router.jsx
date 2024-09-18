@@ -10,6 +10,8 @@ import Secret from "../Pages/Home/Sheared/Secret/Secret";
 import DashBoard from "../Layouts/DashBoard";
 import Cart from "../Pages/DashBoard/Cart/Cart";
 import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
+import AddItems from "../Pages/DashBoard/AddItems/AddItems";
+import PrivateAdmin from "./PrivateAdmin";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,7 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      // normal user route
       {
         path: "cart",
         element: (
@@ -65,8 +68,20 @@ const router = createBrowserRouter([
 
       // admin routes
       {
+        path: "addItems",
+        element: (
+          <PrivateAdmin>
+            <AddItems />
+          </PrivateAdmin>
+        ),
+      },
+      {
         path: "users",
-        element: <AllUsers />,
+        element: (
+          <PrivateAdmin>
+            <AllUsers />
+          </PrivateAdmin>
+        ),
       },
     ],
   },
