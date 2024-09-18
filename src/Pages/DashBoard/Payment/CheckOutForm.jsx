@@ -2,10 +2,13 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useCart from "../../../Hooks/useCart";
+import useAuth from "../../../Hooks/useAuth";
 
 const CheckOutForm = () => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
+  const [transectionId, setTransectionId] = useState("");
+  const { user } = useAuth();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -47,6 +50,28 @@ const CheckOutForm = () => {
       console.log("payment method", paymentMethod);
       setError("");
     }
+
+    // confirm payment
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            email: user?.email || "anonymous",
+            name: user?.displayName || "guast",
+          },
+        },
+      });
+
+    if (confirmError) {
+      console.log({ confirmError });
+    } else {
+      console.log("payment intent", paymentIntent);
+      if (paymentIntent.status === "succeeded") {
+        console.log("transection id: ", paymentIntent.id);
+        setTransectionId(paymentIntent.id);
+      }
+    }
   };
 
   return (
@@ -75,6 +100,9 @@ const CheckOutForm = () => {
         Pay
       </button>
       <p className="text-red-400">{error}</p>
+      {transectionId && (
+        <p className="text-green-600">Success, {transectionId}</p>
+      )}
     </form>
   );
 };
