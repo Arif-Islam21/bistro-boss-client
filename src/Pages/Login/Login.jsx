@@ -67,7 +67,7 @@ const Login = () => {
     // else {
     //   setDisabled(true);
     // }
-    console.log(value);
+    // console.log(value);
   };
 
   return (
