@@ -118,7 +118,9 @@ const router = createBrowserRouter([
           </PrivateAdmin>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/menu/${params.id}`),
+          fetch(
+            `https://bistro-boss-server-eta-mauve.vercel.app/menu/${params.id}`
+          ),
       },
       {
         path: "users",
