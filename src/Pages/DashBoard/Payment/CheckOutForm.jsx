@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useCart from "../../../Hooks/useCart";
 import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const CheckOutForm = () => {
   const [error, setError] = useState("");
@@ -13,18 +14,20 @@ const CheckOutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   useEffect(() => {
-    axiosSecure
-      .post("/create-payment-intent", {
-        price: totalPrice,
-      })
-      .then((res) => {
-        setClientSecret(res.data.clientSecret);
-        console.log(res.data.clientSecret);
-      });
+    if (totalPrice > 0) {
+      axiosSecure
+        .post("/create-payment-intent", {
+          price: totalPrice,
+        })
+        .then((res) => {
+          setClientSecret(res.data.clientSecret);
+          console.log(res.data.clientSecret);
+        });
+    }
   }, [axiosSecure, totalPrice]);
 
   const handleSubmit = async (event) => {
@@ -70,6 +73,30 @@ const CheckOutForm = () => {
       if (paymentIntent.status === "succeeded") {
         console.log("transection id: ", paymentIntent.id);
         setTransectionId(paymentIntent.id);
+
+        // now send the payment history in database
+        const payment = {
+          email: user.email,
+          price: totalPrice,
+          transectionId: paymentIntent.id,
+          date: new Date(), //convert to utc date, use moment js
+          cartIds: cart.map((item) => item._id),
+          menuItemIds: cart.map((item) => item.menuId),
+          status: "pending",
+        };
+
+        const res = await axiosSecure.post("/payments", payment);
+        console.log("payment saved", res);
+        refetch();
+        if (res.data?.paymentResult?.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "transection done",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       }
     }
   };
