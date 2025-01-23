@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../../Providers/AuthProvider";
 import { FaCartShopping } from "react-icons/fa6";
 import useCart from "../../../../Hooks/useCart";
@@ -21,22 +21,56 @@ const Navbar = () => {
       });
   };
 
+  const navData = [
+    {
+      label: "Home",
+      path: "/",
+    },
+    {
+      label: "Our Menu",
+      path: "/menu",
+    },
+    {
+      label: "Order Food",
+      path: "/order/salad",
+    },
+  ];
+
   const navOptions = (
     <>
-      <li>
-        <Link to={"/menu"}>Our Menu</Link>
-      </li>
-      <li>
-        <Link to={"/order/salad"}>Order Food</Link>
-      </li>
+      {navData.map((item, idx) => (
+        <li>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? `btn btn-sm bg-[#A20F10] text-white border-none hover:bg-[#A20F10]/80`
+                : "btn btn-sm btn-neutral"
+            }
+            to={item.path}
+          >
+            {item.label}
+          </NavLink>
+        </li>
+      ))}
+
       {user ? (
         isAdmin ? (
           <li>
-            <Link to={"/dashboard/adminHome"}>DashBoard</Link>
+            <NavLink
+              className="btn btn-sm btn-neutral"
+              to={"/dashboard/adminHome"}
+            >
+              DashBoard
+            </NavLink>
           </li>
         ) : (
           <li>
-            <Link to={"/dashboard/userHome"}>DashBoard</Link>
+            <NavLink
+              className="btn btn-sm btn-neutral"
+              to={"/dashboard/userHome"}
+            >
+              DashBoard
+            </NavLink>
           </li>
         )
       ) : (
@@ -45,18 +79,19 @@ const Navbar = () => {
         </li>
       )}
       <li>
-        <Link to={"/dashboard/cart"}>
-          <button className="btn bg-slate-600 border-none">
-            <FaCartShopping className="mr-2 text-white text-xl" />
-            <div className="badge badge-secondary">+{cart?.length}</div>
-          </button>
+        <Link
+          className="btn btn-sm btn-neutral  border-none"
+          to={"/dashboard/cart"}
+        >
+          <FaCartShopping className="mr-2 text-gray-200 text-xl" />
+          <div className="badge badge-accent">+{cart?.length}</div>
         </Link>
       </li>
 
       {user ? (
         <>
           <li>
-            <button className="" onClick={handleLogout}>
+            <button className="btn btn-sm btn-neutral" onClick={handleLogout}>
               LogOut
             </button>
           </li>
@@ -64,7 +99,9 @@ const Navbar = () => {
       ) : (
         <>
           <li>
-            <Link to={"/login"}>Login</Link>
+            <Link className="btn btn-sm btn-neutral hidden" to={"/login"}>
+              Login
+            </Link>
           </li>
         </>
       )}
@@ -99,12 +136,15 @@ const Navbar = () => {
               {navOptions}
             </ul>
           </div>
-          <Link to={"/"} className="btn btn-ghost text-xl">
+          <Link
+            to={"/"}
+            className="btn btn-neutral bg-[#A20F10] hover:bg-[#A20F10]/80 text-xl"
+          >
             Dine Sphere
           </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navOptions}</ul>
+        <div className="navbar-center hidden lg:flex lg:items-center ">
+          <ul className="menu menu-horizontal px-1 gap-3">{navOptions}</ul>
         </div>
         <div className="navbar-end">
           {user ? (
@@ -119,7 +159,10 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <Link to={"/login"} className="btn btn-neutral text-xl">
+            <Link
+              to={"/login"}
+              className="btn btn-neutral bg-[#A20F10] hover:bg-[#A20F10]/80 text-xl"
+            >
               Login
             </Link>
           )}
