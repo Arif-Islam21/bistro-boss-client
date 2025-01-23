@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div>
       <Helmet>
-        <title>Bistro Boss Resturent</title>
+        <title>Dine Sphere Resturent</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
       <Banner />

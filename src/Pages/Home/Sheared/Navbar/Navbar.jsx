@@ -7,6 +7,7 @@ import useAdmin from "../../../../Hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOutUser } = useContext(AuthContext);
+  // console.log(user);
   const [isAdmin] = useAdmin();
   const [cart] = useCart();
   // console.log(cart);
@@ -99,14 +100,29 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to={"/"} className="btn btn-ghost text-xl">
-            Bistro Boss
+            Dine Sphere
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navOptions}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {user ? (
+            <div className="avatar online">
+              <div className="size-14 rounded-full">
+                <img
+                  src={
+                    user?.photoURL ||
+                    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  }
+                />
+              </div>
+            </div>
+          ) : (
+            <Link to={"/login"} className="btn btn-neutral text-xl">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </>

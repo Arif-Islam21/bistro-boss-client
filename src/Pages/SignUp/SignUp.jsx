@@ -53,7 +53,7 @@ const SignUp = () => {
   return (
     <>
       <Helmet>
-        <title>Bistro Boss | Sign Up</title>
+        <title>Dine Sphere | Sign Up</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
       <div className="hero bg-base-200 min-h-screen">

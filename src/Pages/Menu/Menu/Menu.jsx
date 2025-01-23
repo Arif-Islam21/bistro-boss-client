@@ -21,7 +21,7 @@ const Menu = () => {
   return (
     <div>
       <Helmet>
-        <title>Bistro | Menu</title>
+        <title>Dine Sphere | Menu</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
       {/* main cover */}
