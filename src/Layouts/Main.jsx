@@ -8,7 +8,7 @@ const Main = () => {
   const noHeaderFooter =
     location.pathname.includes("login") || location.pathname.includes("signup");
   return (
-    <div className="container mx-auto">
+    <div>
       {noHeaderFooter || <Navbar />}
       <Outlet />
       {noHeaderFooter || <Footer />}
